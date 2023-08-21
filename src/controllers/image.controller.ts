@@ -4,6 +4,7 @@ import path, { dirname } from 'path';
 import { Response } from 'express';
 import { CreateImage, DeleteImage } from '../services/image.service';
 import { CreateImageInput } from '../schema/image.schema'
+import { deleteImage as DeleteImageFile } from '../utils/helper';
 
 const createImage = async (req: any, res: Response) => {
     try {
@@ -30,9 +31,11 @@ const createImage = async (req: any, res: Response) => {
             }
         }
 
-        return await CreateImage( { ...input.body } , res);
+        const result = await CreateImage( { ...input.body } , res);
+
+        return res.status(201).json({result});
     } catch (e: any) {
-        return res.status(500).send(e.message);
+        return res.status(500).send({message: e.message});
     }
 }
 
@@ -43,31 +46,35 @@ const deleteImage = async (req: any, res: Response) => {
         const protocol = req.protocol;
         const srcs = Array.isArray(req.query.id) ? req.query.id : [req.query.id];
 
-        let filesName = [] as any[];
+        DeleteImageFile(host, protocol, srcs);
 
-        for (let item of srcs) {
-            filesName.push(item.replace(`${protocol}://${host}/images/`, ''));
-        }
+        // let filesName = [] as any[];
 
-        let path = __dirname;
+        // for (let item of srcs) {
+        //     filesName.push(item.replace(`${protocol}://${host}/images/`, ''));
+        // }
 
-        if(path.includes("build")){
-            path += '/../../../public/images';
-        }else{
-            path += '/../../public/images';
-        }
+        // let path = __dirname;
 
-        if (filesName.length > 0) {
-            for (let item of filesName) {
-                const fileDir = `${path}/${item}`;
+        // if(path.includes("build")){
+        //     path += '/../../../public/images';
+        // }else{
+        //     path += '/../../public/images';
+        // }
 
-                if (fs.existsSync(fileDir)) {
-                    fs.unlinkSync(fileDir);
-                }
-            }
-        }
+        // if (filesName.length > 0) {
+        //     for (let item of filesName) {
+        //         const fileDir = `${path}/${item}`;
 
-        return await DeleteImage(res, srcs);
+        //         if (fs.existsSync(fileDir)) {
+        //             fs.unlinkSync(fileDir);
+        //         }
+        //     }
+        // }
+
+        const result = await DeleteImage(srcs);
+
+        return res.status(204).json({ result });
     } catch (e: any) {
         return res.status(500).json({message: e.message});
     }

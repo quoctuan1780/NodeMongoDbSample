@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "tsc & nodemon build/src/app.js",
-    "build": "tsc"
+    "build": "tsc",
+    "startNodemon": "nodemon src/app.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

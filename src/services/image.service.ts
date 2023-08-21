@@ -14,15 +14,15 @@ const createImage = async (input: ImageInput, res: Response) => {
     try {
         const result = await ImageModel.create(input);
         timer({ ...metricsLabels, success: "true" });
-        return res.status(201).json({result});
+        return result;
     } catch (e: any) {
         timer({ ...metricsLabels, success: "false" });
         logger.error(`error: ${e.message}`);
-        return res.status(500).json({message: e.message});
+        return;
     }
 }
 
-const deleteImage = async (res: Response, urls: any[]) => {
+const deleteImage = async (urls: any[]) => {
     const metricsLabels = {
         operation: "DeleteImage",
     };
@@ -30,12 +30,12 @@ const deleteImage = async (res: Response, urls: any[]) => {
     try {
         const result = await ImageModel.deleteMany({url: urls})
         timer({ ...metricsLabels, success: "true" });
-        return res.status(204).json({ result });
+        return result;
     }
     catch (e: any) {
         timer({ ...metricsLabels, success: "false" });
         logger.error(`error: ${e.message}`);
-        return res.status(500).json({message: e.message});
+        return;
     }
 }
 
