@@ -2,6 +2,9 @@
   "version": "1.0.0",
   "author": "Tuan",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "tsc & nodemon build/src/app.js",
