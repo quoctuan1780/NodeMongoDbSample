@@ -101,7 +101,7 @@ export async function deletePost(
 
         const images: any[] = [];
 
-        images.push(...extractImgSrc(post.shortDesc));
+        images.push(...extractImgSrc(post.subTitle));
         images.push(...extractImgSrc(post.content));
         images.push(post.imageUrl);
 

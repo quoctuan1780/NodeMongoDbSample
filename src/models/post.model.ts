@@ -4,7 +4,7 @@ export interface PostInput {
     title: string;
     content: string;
     imageUrl: string;
-    shortDesc: string;
+    subTitle: string;
 }
 
 export interface PostDocument extends PostInput, mongoose.Document {
@@ -17,7 +17,7 @@ const PostSchema = new mongoose.Schema(
         title: { type: String, required: true },
         content: { type: String, required: true },
         imageUrl: { type: String, required: true },
-        shortDesc: { type: String, required: true },
+        subTitle: { type: String, required: true },
     },
     {
         timestamps: true,

@@ -11,7 +11,7 @@ const payload = {
         title: string({
             required_error: "Title is required",
         }),
-        shortDesc: string({
+        subTitle: string({
             required_error: "Short desc is required",
         })
     }),
@@ -31,7 +31,7 @@ const payloadUpdate = {
         title: string({
             required_error: "Title is required",
         }),
-        shortDesc: string({
+        subTitle: string({
             required_error: "Short desc is required",
         })
     }),
