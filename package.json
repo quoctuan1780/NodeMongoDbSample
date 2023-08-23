@@ -9,7 +9,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "tsc & node build/src/app.js",
     "build": "tsc",
-    "startNode": "ts-node --respawn --transpile-only src/app.ts"
+    "startNode": "ts-node --transpile-only src/app.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
